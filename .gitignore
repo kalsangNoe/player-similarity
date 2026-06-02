@@ -1,0 +1,17 @@
+# env
+.venv/
+__pycache__/
+*.pyc
+
+# raw data — only the processed parquet is needed by the app
+data/fifa_raw/
+
+# soccerdata scrape cache
+soccerdata/
+
+# logs
+*.log
+
+# macOS / jupyter cruft
+.DS_Store
+.ipynb_checkpoints/
