@@ -18,3 +18,8 @@ soccerdata/
 
 # local dev tooling
 .claude/
+
+# dev-only scripts and notebooks
+collect_data.py
+load_fifa.py
+eda.ipynb
