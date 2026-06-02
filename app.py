@@ -1,7 +1,7 @@
 """
 Scout — player similarity explorer (Streamlit).
 
-Custom-themed UI over the FC 26 attribute similarity model.
+Custom-themed UI over the player-attribute similarity model.
 Run:  streamlit run app.py
 """
 
@@ -50,7 +50,7 @@ html, body, [class*="css"]  { font-family: 'Space Grotesk', sans-serif; }
 
 /* comp rows */
 .row {
-  display:grid; grid-template-columns: 2.4fr 1fr 1.1fr 1fr 1.6fr;
+  display:grid; grid-template-columns: 2.4fr 1fr 1.1fr 1.6fr;
   align-items:center; gap:.6rem;
   border:1px solid #21262d; border-radius:9px;
   padding:.7rem 1rem; margin-bottom:.5rem; background:#161b22;
@@ -84,7 +84,7 @@ HEADLINE = ["pace", "shooting", "passing", "dribbling", "defending", "physic"]
 st.markdown('<div class="brand">◎ scout</div>', unsafe_allow_html=True)
 st.markdown('<div class="headline">Find a player\'s nearest profiles.</div>',
             unsafe_allow_html=True)
-st.markdown('<div class="sub">EA Sports FC 26 · top-5 leagues · '
+st.markdown('<div class="sub">Top-5 leagues · '
             f'{len(df):,} players · cosine similarity on 44 attributes</div>',
             unsafe_allow_html=True)
 
@@ -113,7 +113,6 @@ st.markdown(
     f'<div class="target"><div class="name">{t["long_name"]}</div>'
     f'<div class="meta">'
     f'<span class="pill">{t["primary_pos"]}</span>'
-    f'<span class="pill">OVR {t["overall"]}</span>'
     f'{t["club_name"]} · {t["league_name"]} · age {t["age"]}'
     f'</div></div>',
     unsafe_allow_html=True,
@@ -132,7 +131,6 @@ with left:
             f'<div class="pclub">{r["club_name"]}</div></div>'
             f'<div class="stat">{r["primary_pos"]}</div>'
             f'<div class="stat">age {r["age"]}</div>'
-            f'<div class="stat">OVR {r["overall"]}</div>'
             f'<div class="bar-wrap"><div class="bar" style="width:{pct}%"></div>'
             f'<div class="bar-txt">{pct:.1f}%</div></div>'
             f'</div>',
