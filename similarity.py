@@ -81,6 +81,7 @@ class PlayerSimilarity:
         n: int = 10,
         same_group: bool = True,
         max_age: int | None = None,
+        positions: list[str] | None = None,
     ) -> pd.DataFrame:
         i = self._find_index(name)
         target = self.df.loc[i]
@@ -92,6 +93,8 @@ class PlayerSimilarity:
 
         if same_group:
             cand = cand[cand["pos_group"] == target["pos_group"]]
+        if positions:
+            cand = cand[cand["primary_pos"].isin(positions)]
         if max_age is not None:
             cand = cand[cand["age"] <= max_age]
 

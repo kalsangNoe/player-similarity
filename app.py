@@ -66,6 +66,12 @@ html, body, [class*="css"]  { font-family: 'Space Grotesk', sans-serif; }
   font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.8rem; color:#0d1117; }
 
 label, .stSlider, .stSelectbox { font-family:'Space Grotesk',sans-serif !important; }
+
+/* custom footer */
+.made-by { text-align:center; margin:3rem 0 1rem; color:#7d8590;
+  font-family:'JetBrains Mono',monospace; font-size:.8rem; letter-spacing:.05em; }
+.made-by a { color:#c8ff00; text-decoration:none; }
+.made-by a:hover { text-decoration:underline; }
 </style>
 """
 st.markdown(CSS, unsafe_allow_html=True)
@@ -101,10 +107,22 @@ with c3:
 with c4:
     same_group = st.toggle("Same position", value=True)
 
+# explicit position filter — narrows results to specific positions, e.g.
+# "only the wingers similar to this striker". Takes precedence over the
+# broad Same-position toggle when set.
+all_positions = sorted(df["primary_pos"].dropna().unique().tolist())
+positions = st.multiselect(
+    "Filter by position", all_positions, default=[],
+    placeholder="All positions",
+)
+if positions:
+    same_group = False
+
 # ------------------------------------------------------------------ query ---
 res = model.find_similar(
     player, n=n, same_group=same_group,
     max_age=None if max_age >= 40 else max_age,
+    positions=positions or None,
 )
 t = df[df["short_name"] == player].iloc[0]
 
@@ -162,3 +180,11 @@ with right:
         margin=dict(l=30, r=30, t=20, b=20), height=380,
     )
     st.plotly_chart(fig, use_container_width=True)
+
+# ------------------------------------------------------------------ footer ---
+st.markdown(
+    '<div class="made-by">made by '
+    '<a href="https://github.com/kalsangNoe" target="_blank">kalsangNoe</a>'
+    '</div>',
+    unsafe_allow_html=True,
+)

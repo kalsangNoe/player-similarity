@@ -15,3 +15,6 @@ soccerdata/
 # macOS / jupyter cruft
 .DS_Store
 .ipynb_checkpoints/
+
+# local dev tooling
+.claude/
