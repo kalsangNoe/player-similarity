@@ -5,6 +5,8 @@ Custom-themed UI over the player-attribute similarity model.
 Run:  streamlit run app.py
 """
 
+import os
+
 import plotly.graph_objects as go
 import streamlit as st
 
@@ -78,11 +80,14 @@ st.markdown(CSS, unsafe_allow_html=True)
 
 
 @st.cache_resource
-def load_model() -> PlayerSimilarity:
+def load_model(_src_version: float) -> PlayerSimilarity:
+    # _src_version (similarity.py mtime) is part of the cache key, so the
+    # model is rebuilt whenever the model code changes — avoids serving a
+    # stale cached instance after a redeploy.
     return PlayerSimilarity()
 
 
-model = load_model()
+model = load_model(os.path.getmtime("similarity.py"))
 df = model.df
 HEADLINE = ["pace", "shooting", "passing", "dribbling", "defending", "physic"]
 
