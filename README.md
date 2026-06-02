@@ -1,5 +1,7 @@
 # ◎ Scout — Football Player Similarity
 
+**▶ Live app: [find-similar-player-profiles.streamlit.app](https://find-similar-player-profiles.streamlit.app/)**
+
 Find a player's nearest stylistic profiles from their attributes. Pick a player
 and the model surfaces the most similar players in Europe's top-5 leagues —
 position-aware, with an attribute radar to compare them side by side.
@@ -75,8 +77,10 @@ python load_fifa.py        # set TOP5 = None inside to go global
 
 ## Deploy
 
-Push to GitHub and deploy free on [Streamlit Community Cloud](https://share.streamlit.io):
-repo `kalsangNoe/player-similarity`, branch `main`, main file `app.py`.
+Deployed free on [Streamlit Community Cloud](https://share.streamlit.io) at
+**[find-similar-player-profiles.streamlit.app](https://find-similar-player-profiles.streamlit.app/)**
+— repo `kalsangNoe/player-similarity`, branch `main`, main file `app.py`. Every
+push to `main` auto-redeploys.
 
 ## Notes & limitations
 
