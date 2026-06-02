@@ -6,8 +6,7 @@ Find a player's nearest stylistic profiles from their attributes. Pick a player
 and the model surfaces the most similar players in Europe's top-5 leagues —
 position-aware, with an attribute radar to compare them side by side.
 
-Built on **EA Sports FC 26** standard-card attributes (SoFIFA), with a
-custom-themed Streamlit UI.
+Built on per-player attribute ratings, with a custom-themed Streamlit UI.
 
 ```
 Rodri      → Rice · Tchouaméni · Locatelli      (deep-lying holders)
@@ -17,9 +16,9 @@ Saliba     → Konaté · Gabriel · Buongiorno       (ball-playing centre-backs
 
 ## How it works
 
-- **Data** — one standard card per player (top-5 leagues, 3,204 players), 44
+- **Data** — one row per player (top-5 leagues, 3,204 players), 44
   numeric attributes: the 6 headline ratings (`pace, shooting, passing,
-  dribbling, defending, physic`) plus ~35 detailed SoFIFA skills.
+  dribbling, defending, physic`) plus ~35 detailed skill attributes.
 - **Model** — features are standardized (`StandardScaler`) so no single rating
   dominates, then ranked by **cosine similarity**. Comparisons are
   position-aware by default (a striker is matched against attackers, a keeper
@@ -60,7 +59,7 @@ model.find_similar("Vinícius", same_group=False)  # pure attribute match
 |------|---------|
 | `app.py` | Streamlit scouting UI |
 | `similarity.py` | similarity model (`PlayerSimilarity`) |
-| `load_fifa.py` | raw FC 26 CSV → cleaned `data/fifa_players.parquet` |
+| `load_fifa.py` | raw attribute CSV → cleaned `data/fifa_players.parquet` |
 | `data/fifa_players.parquet` | model-ready attribute table (committed) |
 | `.streamlit/config.toml` | UI theme |
 | `collect_data.py` | FBref match-stat collector (kept for reference) |
@@ -68,8 +67,7 @@ model.find_similar("Vinícius", same_group=False)  # pure attribute match
 ## Rebuilding the data
 
 The processed parquet is committed, so the app runs as-is. To rebuild from
-source, download the [EA Sports FC 26 SoFIFA dataset](https://www.kaggle.com/datasets/rovnez/fc-26-fifa-26-player-data),
-drop the CSV into `data/fifa_raw/`, then:
+source, drop the raw player-attribute CSV into `data/fifa_raw/`, then:
 
 ```bash
 python load_fifa.py        # set TOP5 = None inside to go global
@@ -87,9 +85,5 @@ push to `main` auto-redeploys.
 - This is **attribute** similarity (player archetype/profile), not
   season-performance similarity. It answers "who plays a similar style," not
   "who's producing similar output right now."
-- Attributes are EA's editorial ratings — a useful, consistent proxy, but not
+- Attributes are editorial ratings — a useful, consistent proxy, but not
   ground-truth event data.
-
----
-
-*Data: EA Sports FC 26 / SoFIFA. This project is unaffiliated with EA Sports.*
